@@ -5,36 +5,28 @@ import {Input} from "@/components/ui/input";
 import {useFetchFunc} from "@/hooks/useAxios";
 import {useRef, useState} from "react";
 import {AlertComponent} from "../alert";
+import {useRouter} from "next/navigation";
 
-const SignUpFormComponent = () => {
+export const SignInComponent = () => {
 	const [alertVariant, setAlertVariant] = useState<"default" | "destructive">(
 		"default"
 	);
 	const [alertMessage, setAlertMessage] = useState<string>("");
-	const firstNameRef = useRef<HTMLInputElement>(null);
-	const lastNameRef = useRef<HTMLInputElement>(null);
-	const passwordRef = useRef<HTMLInputElement>(null);
-	const phoneRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
 	const axios = useFetchFunc();
-	const signUpFunc = () => {
+	const router = useRouter();
+
+	const signInFunc = () => {
 		setAlertMessage("");
-		const firstName = firstNameRef.current?.value?.trim() || "";
-		const lastName = lastNameRef.current?.value?.trim() || "";
-		const password = passwordRef.current?.value?.trim() || "";
-		const phone = phoneRef.current?.value?.trim() || "";
 		const email = emailRef.current?.value?.trim() || "";
-		if (firstName && lastName && password && phone && email) {
+		const password = passwordRef.current?.value?.trim() || "";
+
+		if (email && password) {
 			axios({
-				url: `/auth/sign-up`,
+				url: `/auth/sign-in`,
 				method: "POST",
-				body: JSON.stringify({
-					firstName: firstName,
-					lastName: lastName,
-					email: email,
-					phone: phone,
-					password: password,
-				}),
+				body: JSON.stringify({email, password}),
 			})
 				.then((response) => {
 					console.log(response);
@@ -46,6 +38,9 @@ const SignUpFormComponent = () => {
 					}
 					setAlertVariant("default");
 					setAlertMessage(response.message);
+					if (response.status === 200) {
+						router.push("/books");
+					}
 				})
 				.catch((error) => {
 					console.log(error);
@@ -57,36 +52,19 @@ const SignUpFormComponent = () => {
 				});
 		}
 	};
+
 	return (
 		<div>
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
 			<form onSubmit={(e) => e.preventDefault()} className="w-[24em] ">
-				<h2 className="text-[2.25em] font-bold">Sign up</h2>
+				<h2 className="text-[2.25em] font-bold">Sign in</h2>
 				<p className="font-medium mt-2">
-					Already have an account?
-					<span className="text-blue-500"> Sign in</span>
+					Don't have an account?
+					<span className="text-blue-500"> Sign up</span>
 				</p>
 				<div className="mt-5 flex flex-col gap-4">
-					<Input
-						ref={firstNameRef}
-						required
-						placeholder="First Name"
-						className="w-full h-12 rounded-lg"
-					/>
-					<Input
-						ref={lastNameRef}
-						required
-						placeholder="Last Name"
-						className="w-full h-12 rounded-lg"
-					/>
-					<Input
-						ref={phoneRef}
-						required
-						placeholder="Phone"
-						className="w-full h-12 rounded-lg"
-					/>
 					<Input
 						ref={emailRef}
 						required
@@ -96,18 +74,17 @@ const SignUpFormComponent = () => {
 					<Input
 						ref={passwordRef}
 						required
-						placeholder="password"
+						type="password"
+						placeholder="Password"
 						className="w-full h-12 rounded-lg"
 					/>
 				</div>
 				<Button
-					onClick={signUpFunc}
-					className="bg-[#152540] mt-8 rounded-full w-full h-14 text-xl font-semibold cursor-pointer pb-[-2px]">
-					Next Step
+					onClick={signInFunc}
+					className="bg-[#152540] mt-8 rounded-full w-full h-14 text-xl font-semibold cursor-pointer">
+					Sign In
 				</Button>
 			</form>
 		</div>
 	);
 };
-
-export default SignUpFormComponent;

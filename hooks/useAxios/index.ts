@@ -17,7 +17,6 @@ export const useFetchFunc = () => {
 		const queryParams = params
 			? "?" + new URLSearchParams(params as Record<string, string>).toString()
 			: "";
-		console.log();
 
 		const res = await fetch(
 			`${process.env.NEXT_PUBLIC_BASE_URL}${url}${queryParams}`,
@@ -31,7 +30,6 @@ export const useFetchFunc = () => {
 			}
 		);
 
-		if (!res.ok) throw new Error(`Failed: ${res.statusText} :(`);
 		const data = await res.json();
 		return data;
 	};
