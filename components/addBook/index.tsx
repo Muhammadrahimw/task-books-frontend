@@ -13,6 +13,7 @@ export const AddBookComponent = () => {
 	);
 	const [alertMessage, setAlertMessage] = useState<string>("");
 
+	const formRef = useRef<HTMLFormElement>(null);
 	const titleRef = useRef<HTMLInputElement>(null);
 	const pagesRef = useRef<HTMLInputElement>(null);
 	const yearRef = useRef<HTMLInputElement>(null);
@@ -48,19 +49,17 @@ export const AddBookComponent = () => {
 				}),
 			})
 				.then((response) => {
-					console.log(response);
-
-					if (response.status !== 200) {
+					if (response.status !== 201) {
 						setAlertVariant("destructive");
 						setAlertMessage(response.message);
 						return;
 					}
+					formRef.current?.reset();
 					setAlertVariant("default");
 					setAlertMessage("Book added successfully!");
 				})
 				.catch((error) => {
 					console.log(error);
-
 					if (!alertMessage) {
 						setAlertVariant("destructive");
 						setAlertMessage(error.message || "Request failed");
@@ -74,7 +73,10 @@ export const AddBookComponent = () => {
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
-			<form onSubmit={(e) => e.preventDefault()} className="w-[28em]">
+			<form
+				ref={formRef}
+				onSubmit={(e) => e.preventDefault()}
+				className="w-[28em]">
 				<h2 className="text-[2.25em] font-bold">Add a New Book</h2>
 				<div className="mt-5 flex flex-col gap-4">
 					<Input
@@ -86,21 +88,18 @@ export const AddBookComponent = () => {
 					<Input
 						ref={pagesRef}
 						required
-						type="number"
 						placeholder="Pages"
 						className="w-full h-12 rounded-lg"
 					/>
 					<Input
 						ref={yearRef}
 						required
-						type="number"
 						placeholder="Year"
 						className="w-full h-12 rounded-lg"
 					/>
 					<Input
 						ref={priceRef}
 						required
-						type="number"
 						placeholder="Price"
 						className="w-full h-12 rounded-lg"
 					/>

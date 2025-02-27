@@ -1,12 +1,12 @@
-import {AddBookComponent} from "@/components/addBook";
+import {AddAuthorComponent} from "@/components/addAuthor";
 import Image from "next/image";
 
-const AddBook = () => {
+const AddAuthor = () => {
 	return (
 		<section className="grid grid-cols-2">
 			<div className="w-full p-8 flex items-center justify-center bg-[#F3F3F3ED] h-screen">
 				<Image
-					src={"/imgs/3.png"}
+					src={"/imgs/4.png"}
 					width={400}
 					height={400}
 					alt="Image"
@@ -15,10 +15,10 @@ const AddBook = () => {
 				/>
 			</div>
 			<div className="flex items-center justify-center w-full">
-				<AddBookComponent />
+				<AddAuthorComponent />
 			</div>
 		</section>
 	);
 };
 
-export default AddBook;
+export default AddAuthor;

@@ -12,12 +12,13 @@ export const SignInComponent = () => {
 		"default"
 	);
 	const [alertMessage, setAlertMessage] = useState<string>("");
+	const formRef = useRef<HTMLFormElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const axios = useFetchFunc();
 	const router = useRouter();
 
-	const signInFunc = () => {
+	const signInFunc = async () => {
 		setAlertMessage("");
 		const email = emailRef.current?.value?.trim() || "";
 		const password = passwordRef.current?.value?.trim() || "";
@@ -29,8 +30,6 @@ export const SignInComponent = () => {
 				body: JSON.stringify({email, password}),
 			})
 				.then((response) => {
-					console.log(response);
-
 					if (response.status !== 200) {
 						setAlertVariant("destructive");
 						setAlertMessage(response.message);
@@ -38,6 +37,7 @@ export const SignInComponent = () => {
 					}
 					setAlertVariant("default");
 					setAlertMessage(response.message);
+					formRef.current?.reset();
 					if (response.status === 200) {
 						router.push("/books");
 					}
@@ -58,11 +58,19 @@ export const SignInComponent = () => {
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
-			<form onSubmit={(e) => e.preventDefault()} className="w-[24em] ">
+			<form
+				ref={formRef}
+				onSubmit={(e) => e.preventDefault()}
+				className="w-[24em] ">
 				<h2 className="text-[2.25em] font-bold">Sign in</h2>
 				<p className="font-medium mt-2">
 					Don't have an account?
-					<span className="text-blue-500"> Sign up</span>
+					<span
+						onClick={() => router.push(`/sign-up`)}
+						className="text-blue-500 cursor-pointer">
+						{" "}
+						Sign up
+					</span>
 				</p>
 				<div className="mt-5 flex flex-col gap-4">
 					<Input
