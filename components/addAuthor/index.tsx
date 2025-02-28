@@ -4,8 +4,9 @@ import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {useFetchFunc} from "@/hooks/useAxios";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AlertComponent} from "@/components/alert";
+import {useRouter} from "next/navigation";
 
 export const AddAuthorComponent = () => {
 	const [alertVariant, setAlertVariant] = useState<"default" | "destructive">(
@@ -20,10 +21,12 @@ export const AddAuthorComponent = () => {
 	const dateofDeathRef = useRef<HTMLInputElement>(null);
 	const countryRef = useRef<HTMLInputElement>(null);
 	const bioRef = useRef<HTMLTextAreaElement>(null);
-
+	const router = useRouter();
 	const axios = useFetchFunc();
+	useEffect(() => {
+		localStorage.removeItem(`imageUrl`);
+	}, []);
 
-    
 	const addAuthorFunc = () => {
 		setAlertMessage("");
 		const firstName = firstNameRef.current?.value?.trim() || "";
@@ -31,6 +34,7 @@ export const AddAuthorComponent = () => {
 		const date = dateRef.current?.value?.trim() || "";
 		const dateofDeath = dateofDeathRef.current?.value?.trim() || "";
 		const country = countryRef.current?.value?.trim() || "";
+		const image = localStorage.getItem("imageUrlAuthor") || "";
 		const bio = bioRef.current?.value?.trim() || "";
 
 		if (firstName && lastName && date && country && bio) {
@@ -44,7 +48,11 @@ export const AddAuthorComponent = () => {
 					dateofDeath,
 					country,
 					bio,
+					image,
 				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
 			})
 				.then((response) => {
 					if (response.status !== 201) {
@@ -55,6 +63,7 @@ export const AddAuthorComponent = () => {
 					formRef.current?.reset();
 					setAlertVariant("default");
 					setAlertMessage("Author added successfully!");
+					localStorage.removeItem("imageUrlAuthor");
 				})
 				.catch((error) => {
 					console.log(error);
@@ -68,6 +77,11 @@ export const AddAuthorComponent = () => {
 
 	return (
 		<div>
+			<div
+				onClick={() => router.push(`/books`)}
+				className="mb-12 flex justify-end items-start cursor-pointer">
+				<p>Go to Home</p>
+			</div>
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}

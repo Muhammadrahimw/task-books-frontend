@@ -1,6 +1,5 @@
 import {AddBookComponent} from "@/components/addBook";
 import {UploadImageComponent} from "@/components/addBook/image";
-import Image from "next/image";
 
 const AddBook = () => {
 	return (

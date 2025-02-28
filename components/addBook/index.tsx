@@ -7,6 +7,7 @@ import {useFetchFunc} from "@/hooks/useAxios";
 import {useEffect, useRef, useState} from "react";
 import {AlertComponent} from "@/components/alert";
 import {CategorySelectComponent} from "./category";
+import { useRouter } from "next/navigation";
 
 export const AddBookComponent = () => {
 	const [alertVariant, setAlertVariant] = useState<"default" | "destructive">(
@@ -23,6 +24,7 @@ export const AddBookComponent = () => {
 	const authorRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 	const axios = useFetchFunc();
+	const router = useRouter();
 	useEffect(() => {
 		localStorage.removeItem(`imageUrl`);
 		localStorage.removeItem(`selectedCategory`);
@@ -83,6 +85,11 @@ export const AddBookComponent = () => {
 
 	return (
 		<div>
+			<div
+				onClick={() => router.push(`/books`)}
+				className="mb-12 flex justify-end items-start cursor-pointer">
+				<p>Go to Home</p>
+			</div>
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}

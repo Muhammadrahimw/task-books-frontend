@@ -6,13 +6,13 @@ import {Loader2} from "lucide-react";
 import Image from "next/image";
 import {useRef, useState} from "react";
 
-export const UploadImageComponent = () => {
-	const [imagePath, setImagePath] = useState<string>("/imgs/3.png");
+export const UploadImageComponentAuthor = () => {
+	const [imagePath, setImagePath] = useState<string>("/imgs/4.png");
 	const [loading, setLoading] = useState<boolean>(false);
 	const imageRef = useRef<HTMLInputElement>(null);
 	const axios = useFetchFunc();
 	const uploadImage = async () => {
-		localStorage.removeItem(`imageUrl`);
+		localStorage.removeItem(`imageUrlAuthor`);
 		setLoading(true);
 		if (imageRef.current?.files?.length) {
 			const file = imageRef.current.files[0];
@@ -23,13 +23,13 @@ export const UploadImageComponent = () => {
 					if (response.imageUrl) {
 						setImagePath(response.imageUrl);
 						setLoading(false);
-						localStorage.setItem(`imageUrl`, response.imageUrl);
+						localStorage.setItem(`imageUrlAuthor`, response.imageUrl);
 					}
 				})
 				.catch((error) => {
 					console.error(error);
 					setLoading(false);
-					localStorage.removeItem(`imageUrl`);
+					localStorage.removeItem(`imageUrlAuthor`);
 				});
 		}
 	};
