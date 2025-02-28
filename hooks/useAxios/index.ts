@@ -24,9 +24,10 @@ export const useFetchFunc = () => {
 				method,
 				body: body ? body : undefined,
 				headers: {
-					"Content-Type": "application/json",
+					// "Content-Type": "application/json",
 					...headers,
 				},
+				credentials: "include",
 			}
 		);
 

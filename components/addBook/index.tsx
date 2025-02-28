@@ -4,8 +4,9 @@ import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {useFetchFunc} from "@/hooks/useAxios";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AlertComponent} from "@/components/alert";
+import {CategorySelectComponent} from "./category";
 
 export const AddBookComponent = () => {
 	const [alertVariant, setAlertVariant] = useState<"default" | "destructive">(
@@ -21,8 +22,11 @@ export const AddBookComponent = () => {
 	const countryRef = useRef<HTMLInputElement>(null);
 	const authorRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
-
 	const axios = useFetchFunc();
+	useEffect(() => {
+		localStorage.removeItem(`imageUrl`);
+		localStorage.removeItem(`selectedCategory`);
+	}, []);
 
 	const addBookFunc = () => {
 		setAlertMessage("");
@@ -33,6 +37,8 @@ export const AddBookComponent = () => {
 		const country = countryRef.current?.value?.trim() || "";
 		const author = authorRef.current?.value?.trim() || "";
 		const description = descriptionRef.current?.value?.trim() || "";
+		const category = localStorage.getItem(`selectedCategory`) || "";
+		const image = localStorage.getItem(`imageUrl`) || "";
 
 		if (title && pages && year && price && country && author && description) {
 			axios({
@@ -46,7 +52,12 @@ export const AddBookComponent = () => {
 					country,
 					author,
 					description,
+					category,
+					image,
 				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
 			})
 				.then((response) => {
 					if (response.status !== 201) {
@@ -57,6 +68,8 @@ export const AddBookComponent = () => {
 					formRef.current?.reset();
 					setAlertVariant("default");
 					setAlertMessage("Book added successfully!");
+					localStorage.removeItem(`imageUrl`);
+					localStorage.removeItem(`selectedCategory`);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -115,6 +128,7 @@ export const AddBookComponent = () => {
 						placeholder="Author"
 						className="w-full h-12 rounded-lg"
 					/>
+					<CategorySelectComponent />
 					<Textarea
 						ref={descriptionRef}
 						required

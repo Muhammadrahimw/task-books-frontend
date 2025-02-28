@@ -28,6 +28,9 @@ export const SignInComponent = () => {
 				url: `/auth/sign-in`,
 				method: "POST",
 				body: JSON.stringify({email, password}),
+				headers: {
+                    "Content-Type": "application/json",
+                },
 			})
 				.then((response) => {
 					if (response.status !== 200) {

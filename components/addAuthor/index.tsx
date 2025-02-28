@@ -23,6 +23,7 @@ export const AddAuthorComponent = () => {
 
 	const axios = useFetchFunc();
 
+    
 	const addAuthorFunc = () => {
 		setAlertMessage("");
 		const firstName = firstNameRef.current?.value?.trim() || "";

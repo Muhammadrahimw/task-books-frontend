@@ -3,7 +3,7 @@
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {useFetchFunc} from "@/hooks/useAxios";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AlertComponent} from "../alert";
 import {useRouter} from "next/navigation";
 
@@ -38,6 +38,9 @@ const SignUpFormComponent = () => {
 					phone: phone,
 					password: password,
 				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
 			})
 				.then((response) => {
 					console.log(response);
@@ -75,7 +78,10 @@ const SignUpFormComponent = () => {
 					Already have an account?
 					<span
 						onClick={() => router.push(`/sign-in`)}
-						className="text-blue-500 cursor-pointer"> Sign in</span>
+						className="text-blue-500 cursor-pointer">
+						{" "}
+						Sign in
+					</span>
 				</p>
 				<div className="mt-5 flex flex-col gap-4">
 					<Input
