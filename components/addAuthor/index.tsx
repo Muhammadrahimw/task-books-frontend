@@ -6,7 +6,6 @@ import {Textarea} from "@/components/ui/textarea";
 import {useFetchFunc} from "@/hooks/useAxios";
 import {useEffect, useRef, useState} from "react";
 import {AlertComponent} from "@/components/alert";
-import {useRouter} from "next/navigation";
 
 export const AddAuthorComponent = () => {
 	const [alertVariant, setAlertVariant] = useState<"default" | "destructive">(
@@ -21,7 +20,6 @@ export const AddAuthorComponent = () => {
 	const dateofDeathRef = useRef<HTMLInputElement>(null);
 	const countryRef = useRef<HTMLInputElement>(null);
 	const bioRef = useRef<HTMLTextAreaElement>(null);
-	const router = useRouter();
 	const axios = useFetchFunc();
 	useEffect(() => {
 		localStorage.removeItem(`imageUrl`);
@@ -77,11 +75,6 @@ export const AddAuthorComponent = () => {
 
 	return (
 		<div>
-			<div
-				onClick={() => router.push(`/books`)}
-				className="mb-12 flex justify-end items-start cursor-pointer">
-				<p>Go to Home</p>
-			</div>
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
