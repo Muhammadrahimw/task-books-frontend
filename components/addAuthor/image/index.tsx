@@ -34,8 +34,8 @@ export const UploadImageComponentAuthor = () => {
 		}
 	};
 	return (
-		<div className="w-full min-h-screen flex flex-col items-center justify-center bg-[#F3F3F3ED] p-8">
-			<div className="w-[600px] h-[calc(100vh-10em)] flex items-center justify-center overflow-hidden relative">
+		<div className="w-full flex flex-col items-center justify-center bg-[#708090] p-8">
+			<div className="w-[600px] h-[calc(100vh-13.8em)] flex items-center justify-center overflow-hidden relative max-xl:w-[400px] max-[900px]:w-[300px] max-sm:w-full">
 				<Loader2
 					className={`w-16 h-16 animate-spin text-[#152540] absolute ${
 						loading ? `block` : `hidden`
@@ -54,7 +54,7 @@ export const UploadImageComponentAuthor = () => {
 			</div>
 
 			<div
-				className="w-[20em] h-14 mt-6 rounded-full bg-[#152540] text-white cursor-pointer flex items-center justify-center text-[1.5em] transition hover:bg-[#1c374d] pb-[4px]"
+				className="w-[20em] max-lg:w-full h-14 mt-6 rounded-full bg-[#152540] text-white cursor-pointer flex items-center justify-center text-[1.5em] transition hover:bg-[#1c374d] pb-[4px]"
 				onClick={() => imageRef.current?.click()}>
 				<Input
 					ref={imageRef}

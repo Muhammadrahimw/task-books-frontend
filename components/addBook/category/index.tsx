@@ -13,9 +13,7 @@ import {
 } from "@/components/ui/select";
 
 export function CategorySelectComponent() {
-	const [selectedCategory, setSelectedCategory] = React.useState<string>("");
 	const categoryFunc = (value: string) => {
-		setSelectedCategory(value);
 		localStorage.setItem("selectedCategory", value);
 	};
 	return (

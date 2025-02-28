@@ -3,7 +3,7 @@
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {useFetchFunc} from "@/hooks/useAxios";
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import {AlertComponent} from "../alert";
 import {useRouter} from "next/navigation";
 
@@ -65,14 +65,14 @@ const SignUpFormComponent = () => {
 		}
 	};
 	return (
-		<div>
+		<div className="w-full px-8 py-10">
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
 			<form
 				ref={formRef}
 				onSubmit={(e) => e.preventDefault()}
-				className="w-[24em] ">
+				className="w-[24em] max-[900px]:w-full mx-auto">
 				<h2 className="text-[2.25em] font-bold">Sign up</h2>
 				<p className="font-medium mt-2">
 					Already have an account?

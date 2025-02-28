@@ -74,14 +74,14 @@ export const AddAuthorComponent = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full px-8 max-md:text-[0.7em] max-sm:py-10">
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
 			<form
 				ref={formRef}
 				onSubmit={(e) => e.preventDefault()}
-				className="w-[28em]">
+				className="w-[28em] max-xl:w-full mx-auto">
 				<h2 className="text-[2.25em] font-bold">Add a New Author</h2>
 				<div className="mt-5 flex flex-col gap-4">
 					<Input

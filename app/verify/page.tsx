@@ -23,7 +23,7 @@ const Verify = () => {
 				}
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [router, token, axios]);
 
 	return (
 		<section className="w-full h-screen flex items-center justify-center bg-gray-900 text-white">

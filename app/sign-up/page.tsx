@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const SignUp = () => {
 	return (
-		<section className="grid grid-cols-2">
-			<div className="w-full p-8 flex items-center justify-center bg-[#C9AC8CED] h-screen">
+		<section className="grid grid-cols-2 max-md:flex max-md:items-center max-md:h-screen">
+			<div className="w-full p-8 flex items-center justify-center bg-[#708090] h-screen max-md:hidden">
 				<Image
 					src={"/imgs/2.png"}
 					width={1000}

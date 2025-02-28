@@ -7,7 +7,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		router.push("/books");
-	}, []);
+	}, [router]);
 	return <div>Home</div>;
 };
 

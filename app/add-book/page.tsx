@@ -3,7 +3,7 @@ import {UploadImageComponent} from "@/components/addBook/image";
 
 const AddBook = () => {
 	return (
-		<section className="grid grid-cols-2">
+		<section className="grid grid-cols-2 max-sm:grid-cols-1">
 			<div className="">
 				<UploadImageComponent />
 			</div>

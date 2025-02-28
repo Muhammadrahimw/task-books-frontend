@@ -29,8 +29,8 @@ export const SignInComponent = () => {
 				method: "POST",
 				body: JSON.stringify({email, password}),
 				headers: {
-                    "Content-Type": "application/json",
-                },
+					"Content-Type": "application/json",
+				},
 			})
 				.then((response) => {
 					if (response.status !== 200) {
@@ -57,17 +57,17 @@ export const SignInComponent = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full px-8 py-10">
 			{alertMessage && (
 				<AlertComponent variant={alertVariant} message={alertMessage} />
 			)}
 			<form
 				ref={formRef}
 				onSubmit={(e) => e.preventDefault()}
-				className="w-[24em] ">
+				className="w-[24em] max-[900px]:w-full mx-auto">
 				<h2 className="text-[2.25em] font-bold">Sign in</h2>
 				<p className="font-medium mt-2">
-					Don't have an account?
+					Don`t have an account?
 					<span
 						onClick={() => router.push(`/sign-up`)}
 						className="text-blue-500 cursor-pointer">
@@ -92,7 +92,7 @@ export const SignInComponent = () => {
 				</div>
 				<Button
 					onClick={signInFunc}
-					className="bg-[#152540] mt-8 rounded-full w-full h-14 text-xl font-semibold cursor-pointer">
+					className="bg-[#152540] mt-8 rounded-full w-full h-14 text-xl font-semibold cursor-pointer pb-[0.5em]">
 					Sign In
 				</Button>
 			</form>
