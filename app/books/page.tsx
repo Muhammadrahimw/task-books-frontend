@@ -2,6 +2,7 @@ import {BooksComponent} from "@/components/books";
 import {CategoryComponent} from "@/components/category";
 import {SearchComponent} from "@/components/search";
 import Image from "next/image";
+import {Suspense} from "react";
 
 const Books = () => {
 	return (
@@ -13,11 +14,17 @@ const Books = () => {
 				height={2000}
 				className="w-full mt-8"
 			/>
-			<SearchComponent />
+			<Suspense fallback={<div className="text-3xl">Loading...</div>}>
+				<SearchComponent />
+			</Suspense>
 			<div className="flex items-center justify-center flex-col mt-[2em] translate-y-[-3em]">
-				<CategoryComponent />
+				<Suspense fallback={<div className="text-3xl">Loading...</div>}>
+					<CategoryComponent />
+				</Suspense>
 			</div>
-			<BooksComponent />
+			<Suspense fallback={<div className="text-3xl">Loading...</div>}>
+				<BooksComponent />
+			</Suspense>
 		</section>
 	);
 };
